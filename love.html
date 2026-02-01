@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- Mobile & iOS Safe -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ff4d6d">
+
+<title>Aarshi, Will You Be My Valentine? ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    min-height:100vh;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+section{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.96);
+    max-width:480px;
+    width:100%;
+    border-radius:30px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 25px 50px rgba(0,0,0,0.25);
+    animation:pop .8s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(.85);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+
+h1,h2{color:#ff4d6d}
+h1{font-size:34px}
+
+p{
+    color:#555;
+    font-size:16px;
+    line-height:1.7;
+    margin-top:12px;
+}
+
+.heart{
+    font-size:60px;
+    margin:20px 0;
+    animation:beat 1s infinite;
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.25)}
+}
+
+button{
+    padding:14px 30px;
+    border-radius:30px;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.yes{
+    background:#ff4d6d;
+    color:#fff;
+}
+
+.yes:hover{
+    background:#ff1f4d;
+    transform:scale(1.08);
+}
+
+.no{
+    background:#ffd6e0;
+    color:#ff1f4d;
+    position:relative;
+}
+
+/* Music Button */
+.music{
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#fff;
+    color:#ff4d6d;
+    font-size:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+/* Floating hearts */
+.floating-heart{
+    position:fixed;
+    font-size:22px;
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(100vh);opacity:0}
+    20%{opacity:1}
+    to{transform:translateY(-10vh);opacity:0}
+}
+
+/* Rose petals: TOP ➜ BOTTOM */
+.petal{
+    position:fixed;
+    top:-10vh;
+    font-size:22px;
+    animation:fallDown linear infinite;
+}
+
+@keyframes fallDown{
+    from{transform:translateY(0) rotate(0deg);opacity:1}
+    to{transform:translateY(120vh) rotate(360deg);opacity:0}
+}
+
+@media(max-width:600px){
+    h1{font-size:28px}
+    .heart{font-size:50px}
+    p{font-size:15px}
+}
+</style>
+</head>
+
+<body>
+
+<button class="music" onclick="toggleMusic()">🎵</button>
+
+<!-- iOS-safe audio (plays only after tap) -->
+<audio id="song" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SECTION 1 -->
+<section>
+<div class="card">
+<h1>Hey Aarshi Shah 💕</h1>
+<div class="heart">❤️</div>
+<p>
+This little space is just for you.<br>
+Because some feelings deserve something special.
+</p>
+<button class="yes" onclick="next(1)">Continue 💌</button>
+</div>
+</section>
+
+<!-- SECTION 2 -->
+<section style="display:none">
+<div class="card">
+<h2>A Small Love Note ✨</h2>
+<p>
+Aarshi, you bring warmth and calm in a way that feels rare.
+</p>
+<button class="yes" onclick="next(2)">Read More 💖</button>
+</div>
+</section>
+
+<!-- SECTION 3 -->
+<section style="display:none">
+<div class="card">
+<h2>Why Choose Me 😌</h2>
+<p>💖 I’ll always choose you</p>
+<p>😂 I’ll protect your smile</p>
+<p>🌙 I’ll listen, always</p>
+<p>🤍 I care deeply</p>
+<p>✨ I believe in us</p>
+<button class="yes" onclick="next(3)">One Last Question 💍</button>
+</div>
+</section>
+
+<!-- SECTION 4 -->
+<section style="display:none">
+<div class="card">
+<h2>Aarshi Shah,<br>Will You Be My Valentine? 💕</h2>
+<div class="heart">💘</div>
+
+<button class="yes" onclick="yes()">YES 😍</button>
+<button class="yes" onclick="yes()">Obviously YES 💖</button>
+<button class="no"
+    ontouchstart="runAway(this)"
+    onmouseover="runAway(this)">
+    No 🙈
+</button>
+</div>
+</section>
+
+<script>
+let sections=document.querySelectorAll("section");
+let music=document.getElementById("song");
+let playing=false;
+
+function next(i){
+    sections[i-1].style.display="none";
+    sections[i].style.display="flex";
+}
+
+function toggleMusic(){
+    if(!playing){
+        music.play();
+        playing=true;
+    }else{
+        music.pause();
+        playing=false;
+    }
+}
+
+function runAway(btn){
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*70+"%";
+    btn.style.top=Math.random()*70+"%";
+}
+
+function yes(){
+    document.body.innerHTML=`
+    <section>
+    <div class="card">
+    <h1>You Said YES 💖</h1>
+    <div class="heart">🥰</div>
+    <p>
+    Aarshi Shah, you just made my heart incredibly happy.<br>
+    This Valentine’s Day is officially ours 💕
+    </p>
+    </div>
+    </section>`;
+    hearts();roses();
+}
+
+function hearts(){
+    for(let i=0;i<30;i++){
+        let h=document.createElement("div");
+        h.className="floating-heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(Math.random()*3+3)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    }
+}
+
+function roses(){
+    for(let i=0;i<40;i++){
+        let r=document.createElement("div");
+        r.className="petal";
+        r.innerHTML="🌹";
+        r.style.left=Math.random()*100+"vw";
+        r.style.animationDuration=(Math.random()*4+5)+"s";
+        document.body.appendChild(r);
+        setTimeout(()=>r.remove(),9000);
+    }
+}
+</script>
+
+</body>
+</html>
